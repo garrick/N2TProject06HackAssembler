@@ -59,7 +59,6 @@ public class HackParserTest {
         assertEquals("D=M", hackToken.getTokenValue());
     }
 
-    @Disabled
     @ParameterizedTest
     @ValueSource(strings = {"D;JGT","   D;JGT     ",
             "        D;JGT   "})

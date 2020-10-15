@@ -7,6 +7,6 @@ public class HackValueToken extends HackStandardToken{
 
     @Override
     public String toHack() {
-        return DecimalToBinaryConverter.convert(Integer.parseInt(this.getTokenValue().substring(1)));
+        return DecimalToBinaryConverter.convert16(Integer.parseInt(this.getTokenValue().substring(1)));
     }
 }

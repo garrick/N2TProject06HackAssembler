@@ -8,6 +8,7 @@ public class HackParser implements Parser {
     private final String singleLineCommentPattern = "(\\s*)(//.*)";
     private final String valuePattern = "(\\@\\d*)";
     private final String assignmentPattern = ".*=.*";
+    private final String jumpPattern = ".*;.*";
     @Override
     public List<HackToken> tokenize(List<String> rawInput) {
         ArrayList<HackToken> returnList = new ArrayList<>();
@@ -18,8 +19,10 @@ public class HackParser implements Parser {
                 returnList.add(new HackCommentToken(rawLine));
             } else if(noCommentsTrimmed.matches(valuePattern)){
                 returnList.add(new HackValueToken(rawLine, noCommentsTrimmed));
-            } else if(noCommentsTrimmed.matches(assignmentPattern)){
+            } else if(noCommentsTrimmed.matches(assignmentPattern)) {
                 returnList.add(new HackAssignmentToken(rawLine, noCommentsTrimmed));
+            } else if(noCommentsTrimmed.matches(jumpPattern)){
+                    returnList.add(new HackJumpToken(rawLine, noCommentsTrimmed));
             } else {
                 returnList.add(new HackBadToken(rawLine));
             }

@@ -8,6 +8,6 @@ public class DecimalToBinaryConverterTest {
 
     @Test
     public void testPaddingAndValue(){
-        assertEquals("0000000000000010", DecimalToBinaryConverter.convert(2));
+        assertEquals("0000000000000010", DecimalToBinaryConverter.convert16(2));
     }
 }

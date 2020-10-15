@@ -8,9 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class HackJumpTokenTest {
 
     @Test
-    @Disabled
     public void testAZeroCompToHack() {
-        HackJumpToken unit = new HackJumpToken("", "D=A");
-        assertEquals("BADFOOD",unit.toHack());
+        HackJumpToken unit = new HackJumpToken("0;JMP", "0;JMP");
+        assertEquals("1110101010000111", unit.toHack());
     }
 }
