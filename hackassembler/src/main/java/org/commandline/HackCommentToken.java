@@ -1,12 +1,8 @@
 package org.commandline;
 
-public class HackCommentToken extends HackStandardToken {
+public class HackCommentToken extends HackInvisibleToken {
     public HackCommentToken(String rawLine, int position) {
         super(rawLine, null, position);
     }
 
-    @Override
-    public String toHack() {
-        return "";
-    }
 }

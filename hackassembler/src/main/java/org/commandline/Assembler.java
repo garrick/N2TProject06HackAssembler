@@ -34,7 +34,7 @@ public class Assembler {
         final boolean finalDebug = debug;
         hackTokens.forEach((token) -> {
             if(finalDebug) {
-                System.out.println(token.getClass().getSimpleName()+"\t\t\t"+token.getPosition() + "\t\t" + token.getTokenValue()+"\\t"+token.getRawValue());
+                System.out.println(token + "\t" +token.getClass().getSimpleName()+"\t\t\t"+token.getPosition() + "\t\t" + token.getTokenValue()+"\\t"+token.getRawValue());
             } else {
                 if(token.getTokenValue() != null) System.out.println(token);
             }

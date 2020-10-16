@@ -1,6 +1,6 @@
 package org.commandline;
 
-public class HackBadToken extends HackStandardToken
+public class HackBadToken extends HackInvisibleToken
 {
     public HackBadToken(String rawValue, int position) {
         super(rawValue, null, position);

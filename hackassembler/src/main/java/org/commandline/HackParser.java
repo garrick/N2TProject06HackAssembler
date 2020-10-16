@@ -7,7 +7,7 @@ public class HackParser implements Parser {
 
     private final String singleLineCommentPattern = "(\\s*)(//.*)";
     private final String valuePattern = "(\\@\\d*)";
-    private final String symbolPattern = "(\\@\\D*)";
+    private final String symbolPattern = "(\\@[A-Z]+\\w*)";
     private final String assignmentPattern = ".*=.*";
     private final String jumpPattern = ".*;.*";
     private final String labelPattern = "\\(.*\\)";
@@ -21,10 +21,15 @@ public class HackParser implements Parser {
             HackToken token = null;
             if(noCommentsTrimmed.isBlank()){
                 token = new HackCommentToken(rawLine, position);
-            }  else if(noCommentsTrimmed.matches(symbolPattern)){
-                token = new HackSymbolToken(rawLine, noCommentsTrimmed, position);
-            } else if(noCommentsTrimmed.matches(valuePattern)){
+            }  else if(noCommentsTrimmed.matches(valuePattern)){
                 token = new HackValueToken(rawLine, noCommentsTrimmed, position);
+            } else if(noCommentsTrimmed.matches(symbolPattern)){
+                int builtInSymbol = BuiltInSymbolTable.getOrDefault(noCommentsTrimmed.substring(1), -1);
+                if(builtInSymbol != -1){
+                    token = new HackValueToken(rawLine, "@"+builtInSymbol, position);
+                } else {
+                    token = new HackSymbolToken(rawLine, noCommentsTrimmed, position);
+                }
             } else if(noCommentsTrimmed.matches(labelPattern)){
                 token = new HackLabelToken(rawLine, noCommentsTrimmed, position);
             } else if(noCommentsTrimmed.matches(assignmentPattern)) {

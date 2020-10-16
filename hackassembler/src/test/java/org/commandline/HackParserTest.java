@@ -1,6 +1,7 @@
 package org.commandline;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -92,4 +93,27 @@ public class HackParserTest {
         //No symbol location should be set on first pass!
         assertEquals(-1, ((HackSymbolToken)hackToken).getSymbolTableLocation());
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"@KBD","   @KBD     ",
+            "        @KBD   "})
+    public void tokenizeConvertsBuiltInSymbolsFromWordsWithoutSpaces(String rawSingleLine) {
+        List<String> rawSingleLineComments = Arrays.asList(rawSingleLine);
+        HackToken hackToken = unit.firstPass(rawSingleLineComments).get(0);
+        assertEquals(HackValueToken.class,hackToken.getClass());
+        assertEquals(rawSingleLine, hackToken.getRawValue());
+        assertEquals("@24576", hackToken.getTokenValue());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"@R15","   @R15     ",
+            "        @R15   "})
+    public void tokenizeConvertsBuiltInSymbolsAsRegistersWithoutSpaces(String rawSingleLine) {
+        List<String> rawSingleLineComments = Arrays.asList(rawSingleLine);
+        HackToken hackToken = unit.firstPass(rawSingleLineComments).get(0);
+        assertEquals(HackValueToken.class,hackToken.getClass());
+        assertEquals(rawSingleLine, hackToken.getRawValue());
+        assertEquals("@15", hackToken.getTokenValue());
+    }
+
 }
