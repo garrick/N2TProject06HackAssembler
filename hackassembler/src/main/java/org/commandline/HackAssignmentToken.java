@@ -2,10 +2,9 @@ package org.commandline;
 
 import java.util.HashMap;
 
-public class HackAssignmentToken extends HackStandardToken
-{
-    public HackAssignmentToken(String rawValue, String tokenValue) {
-        super(rawValue, tokenValue);
+public class HackAssignmentToken extends HackStandardToken implements HackExecutableToken {
+    public HackAssignmentToken(String rawValue, String tokenValue, int position) {
+        super(rawValue, tokenValue, position);
     }
 
     private String instrBits = "111";

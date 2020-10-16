@@ -4,11 +4,13 @@ public abstract class HackStandardToken implements HackToken{
 
     private String rawLine;
     private String tokenValue;
+    private int labelPosition;
 
-    public HackStandardToken(String rawLine, String tokenValue) {
+    public HackStandardToken(String rawLine, String tokenValue, int labelPosition) {
 
         this.rawLine = rawLine;
         this.tokenValue = tokenValue;
+        this.labelPosition = labelPosition;
     }
 
     @Override
@@ -24,6 +26,11 @@ public abstract class HackStandardToken implements HackToken{
     @Override
     public String toHack() {
         return null;
+    }
+
+    @Override
+    public int getPosition() {
+        return labelPosition;
     }
 
     @Override

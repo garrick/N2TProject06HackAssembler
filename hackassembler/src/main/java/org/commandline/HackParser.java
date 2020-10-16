@@ -7,26 +7,38 @@ public class HackParser implements Parser {
 
     private final String singleLineCommentPattern = "(\\s*)(//.*)";
     private final String valuePattern = "(\\@\\d*)";
+    private final String symbolPattern = "(\\@\\D*)";
     private final String assignmentPattern = ".*=.*";
     private final String jumpPattern = ".*;.*";
+    private final String labelPattern = "\\(.*\\)";
     @Override
-    public List<HackToken> tokenize(List<String> rawInput) {
+    public List<HackToken> firstPass(List<String> rawInput) {
         ArrayList<HackToken> returnList = new ArrayList<>();
-        rawInput.forEach((String rawLine) -> {
+        int position = 0;
+        for(String rawLine: rawInput){
             String noComments = rawLine.replaceAll(singleLineCommentPattern, "");
             String noCommentsTrimmed = noComments.trim();
+            HackToken token = null;
             if(noCommentsTrimmed.isBlank()){
-                returnList.add(new HackCommentToken(rawLine));
+                token = new HackCommentToken(rawLine, position);
+            }  else if(noCommentsTrimmed.matches(symbolPattern)){
+                token = new HackSymbolToken(rawLine, noCommentsTrimmed, position);
             } else if(noCommentsTrimmed.matches(valuePattern)){
-                returnList.add(new HackValueToken(rawLine, noCommentsTrimmed));
+                token = new HackValueToken(rawLine, noCommentsTrimmed, position);
+            } else if(noCommentsTrimmed.matches(labelPattern)){
+                token = new HackLabelToken(rawLine, noCommentsTrimmed, position);
             } else if(noCommentsTrimmed.matches(assignmentPattern)) {
-                returnList.add(new HackAssignmentToken(rawLine, noCommentsTrimmed));
+                token = new HackAssignmentToken(rawLine, noCommentsTrimmed, position);
             } else if(noCommentsTrimmed.matches(jumpPattern)){
-                    returnList.add(new HackJumpToken(rawLine, noCommentsTrimmed));
+                token = new HackJumpToken(rawLine, noCommentsTrimmed, position);
             } else {
-                returnList.add(new HackBadToken(rawLine));
+                token = new HackBadToken(rawLine, position);
             }
-        });
+            returnList.add(token);
+            if(token instanceof HackExecutableToken) {
+                position++;
+            }
+        };
         return returnList;
     }
 }

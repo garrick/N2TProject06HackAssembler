@@ -1,7 +1,6 @@
 package org.commandline;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -23,7 +22,7 @@ public class HackParserTest {
     @ValueSource(strings = {"//A single comment","  //Indented comment", "        //Comment with tab and space mixed"})
     public void tokenizeRemovesCommentLines(String rawSingleComment) {
         List<String> rawSingleLineComments = Arrays.asList(rawSingleComment);
-        List<HackToken> hackTokens = unit.tokenize(rawSingleLineComments);
+        List<HackToken> hackTokens = unit.firstPass(rawSingleLineComments);
         assertEquals(rawSingleComment, hackTokens.get(0).getRawValue());
     }
 
@@ -32,8 +31,8 @@ public class HackParserTest {
             "        @21//Comment with tab and space mixed"})
     public void tokenizeRecognizesValues(String rawSingleLine) {
         List<String> rawSingleLineComments = Arrays.asList(rawSingleLine);
-        HackToken hackToken = unit.tokenize(rawSingleLineComments).get(0);
-        assertEquals(hackToken.getClass(), HackValueToken.class);
+        HackToken hackToken = unit.firstPass(rawSingleLineComments).get(0);
+        assertEquals(HackValueToken.class, hackToken.getClass());
         assertEquals(rawSingleLine, hackToken.getRawValue());
         assertEquals("@21", hackToken.getTokenValue());
     }
@@ -43,8 +42,8 @@ public class HackParserTest {
             "        #1//pound sign"})
     public void tokenizeRecognizesBadValues(String rawSingleLine) {
         List<String> rawSingleLineComments = Arrays.asList(rawSingleLine);
-        HackToken hackToken = unit.tokenize(rawSingleLineComments).get(0);
-        assertEquals(hackToken.getClass(), HackBadToken.class);
+        HackToken hackToken = unit.firstPass(rawSingleLineComments).get(0);
+        assertEquals(HackBadToken.class, hackToken.getClass());
         assertEquals(rawSingleLine, hackToken.getRawValue());
     }
 
@@ -53,8 +52,8 @@ public class HackParserTest {
             "        D=M   "})
     public void tokenizeRecognizesAssignmentWithoutSpaces(String rawSingleLine) {
         List<String> rawSingleLineComments = Arrays.asList(rawSingleLine);
-        HackToken hackToken = unit.tokenize(rawSingleLineComments).get(0);
-        assertEquals(hackToken.getClass(), HackAssignmentToken.class);
+        HackToken hackToken = unit.firstPass(rawSingleLineComments).get(0);
+        assertEquals(HackAssignmentToken.class, hackToken.getClass());
         assertEquals(rawSingleLine, hackToken.getRawValue());
         assertEquals("D=M", hackToken.getTokenValue());
     }
@@ -64,9 +63,33 @@ public class HackParserTest {
             "        D;JGT   "})
     public void tokenizeRecognizesJumpsWithoutSpaces(String rawSingleLine) {
         List<String> rawSingleLineComments = Arrays.asList(rawSingleLine);
-        HackToken hackToken = unit.tokenize(rawSingleLineComments).get(0);
-        assertEquals(hackToken.getClass(), HackJumpToken.class);
+        HackToken hackToken = unit.firstPass(rawSingleLineComments).get(0);
+        assertEquals(HackJumpToken.class, hackToken.getClass());
         assertEquals(rawSingleLine, hackToken.getRawValue());
         assertEquals("D;JGT", hackToken.getTokenValue());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"(END)","   (END)     ",
+            "        (END)   "})
+    public void tokenizeRecognizesLabelsWithoutSpaces(String rawSingleLine) {
+        List<String> rawSingleLineComments = Arrays.asList(rawSingleLine);
+        HackToken hackToken = unit.firstPass(rawSingleLineComments).get(0);
+        assertEquals(HackLabelToken.class, hackToken.getClass());
+        assertEquals(rawSingleLine, hackToken.getRawValue());
+        assertEquals("(END)", hackToken.getTokenValue());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"@END","   @END     ",
+            "        @END   "})
+    public void tokenizeRecognizesUserSymbolsWithoutSpaces(String rawSingleLine) {
+        List<String> rawSingleLineComments = Arrays.asList(rawSingleLine);
+        HackToken hackToken = unit.firstPass(rawSingleLineComments).get(0);
+        assertEquals(HackSymbolToken.class,hackToken.getClass());
+        assertEquals(rawSingleLine, hackToken.getRawValue());
+        assertEquals("@END", hackToken.getTokenValue());
+        //No symbol location should be set on first pass!
+        assertEquals(-1, ((HackSymbolToken)hackToken).getSymbolTableLocation());
     }
 }
