@@ -5,9 +5,10 @@ import java.util.HashMap;
 public class BuiltInSymbolTable {
 
     private static HashMap<String, Integer> table = new HashMap();
+
     static {
-        for(int i = 0; i <= 15; i++) {
-            table.put("R"+i, i);
+        for (int i = 0; i <= 15; i++) {
+            table.put("R" + i, i);
         }
         table.put("SCREEN", 16384);
         table.put("KBD", 24576);

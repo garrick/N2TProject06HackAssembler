@@ -15,13 +15,13 @@ public class BuiltInSymbolTableTest {
     }
 
     @Test
-    public void testHardwareSymbols(){
+    public void testHardwareSymbols() {
         assertEquals(16384, BuiltInSymbolTable.getOrDefault("SCREEN", -1));
         assertEquals(24576, BuiltInSymbolTable.getOrDefault("KBD", -1));
     }
 
     @Test
-    public void testCommonMnemonicSymbols(){
+    public void testCommonMnemonicSymbols() {
         assertEquals(0, BuiltInSymbolTable.getOrDefault("SP", -1));
         assertEquals(1, BuiltInSymbolTable.getOrDefault("LCL", -1));
         assertEquals(2, BuiltInSymbolTable.getOrDefault("ARG", -1));

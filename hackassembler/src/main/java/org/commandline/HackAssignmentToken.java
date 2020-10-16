@@ -1,14 +1,11 @@
 package org.commandline;
 
-import java.util.HashMap;
-
 public class HackAssignmentToken extends HackStandardToken implements HackExecutableToken {
     public HackAssignmentToken(String rawValue, String tokenValue, int position) {
         super(rawValue, tokenValue, position);
     }
 
     private String instrBits = "111";
-
 
 
     @Override
@@ -19,9 +16,9 @@ public class HackAssignmentToken extends HackStandardToken implements HackExecut
         String[] fragments = tokenValue.split("\\=");
 
         String comp = fragments[1];
-        if(InstructionTables.mapAOneCInstruction(comp, "NOTAONE").equals("NOTAONE")) {
+        if (InstructionTables.mapAOneCInstruction(comp, "NOTAONE").equals("NOTAONE")) {
             hackOut.append("0"); //Zero A
-            hackOut.append(InstructionTables.mapAZeroCInstruction(comp,""));
+            hackOut.append(InstructionTables.mapAZeroCInstruction(comp, ""));
         } else {
             hackOut.append("1");
             hackOut.append(InstructionTables.mapAOneCInstruction(comp, ""));

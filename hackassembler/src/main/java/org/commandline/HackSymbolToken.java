@@ -10,7 +10,7 @@ public class HackSymbolToken extends HackStandardToken implements SymbolValue, H
 
     @Override
     public String toHack() {
-        return "@"+this.symbolTableLocation;
+        return "@" + this.symbolTableLocation;
     }
 
     @Override

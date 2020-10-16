@@ -1,6 +1,6 @@
 package org.commandline;
 
-public abstract class HackStandardToken implements HackToken{
+public abstract class HackStandardToken implements HackToken {
 
     private String rawLine;
     private String tokenValue;

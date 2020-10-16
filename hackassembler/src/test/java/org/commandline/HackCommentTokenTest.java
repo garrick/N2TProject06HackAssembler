@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class HackCommentTokenTest {
 
     @Test
-    public void shouldReturnNullValueAndNoPosition(){
+    public void shouldReturnNullValueAndNoPosition() {
         HackCommentToken unit = new HackCommentToken("//Foo", 7);
         assertNull(unit.getTokenValue());
     }

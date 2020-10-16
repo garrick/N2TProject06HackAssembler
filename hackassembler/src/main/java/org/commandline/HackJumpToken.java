@@ -1,11 +1,6 @@
 package org.commandline;
 
-import java.util.HashMap;
-
 public class HackJumpToken extends HackStandardToken implements HackExecutableToken {
-
-
-
 
     public HackJumpToken(String rawLine, String tokenValue, int position) {
         super(rawLine, tokenValue, position);

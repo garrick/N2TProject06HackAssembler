@@ -1,6 +1,7 @@
 package org.commandline;
 
 public interface SymbolValue {
-    public void setSymbolTableLocation(int location);
-    public int getSymbolTableLocation();
+    void setSymbolTableLocation(int location);
+
+    int getSymbolTableLocation();
 }
