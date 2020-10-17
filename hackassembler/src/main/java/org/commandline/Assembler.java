@@ -32,7 +32,7 @@ public class Assembler {
             e.printStackTrace();
         }
         HackParser parser = new HackParser();
-        List<HackToken> hackTokens = parser.firstPass(fileLines);
+        List<HackToken> hackTokens = parser.secondPass(parser.firstPass(fileLines));
         final boolean finalDebug = debug;
         if (finalDebug) {
             parser.dumpLabels();

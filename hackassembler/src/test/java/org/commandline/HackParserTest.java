@@ -116,6 +116,16 @@ public class HackParserTest {
         assertEquals("@15", hackToken.getTokenValue());
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"@myvar", " @myvar  ", "    @myvar  "})
+    public void firstPassCreatesUserDefinedHackSymbolTokens(String rawSingleLine) {
+        List<String> rawSingleLineComments = Arrays.asList(rawSingleLine);
+        HackToken hackToken = unit.firstPass(rawSingleLineComments).get(0);
+        assertEquals(HackSymbolToken.class, hackToken.getClass());
+        assertEquals(rawSingleLine, hackToken.getRawValue());
+        assertEquals("@myvar", hackToken.getTokenValue());
+    }
+
     @Test
     public void secondPassReplacesLabelReferenceWithAValues() {
         String[] rawLines = new String[]
@@ -135,7 +145,24 @@ public class HackParserTest {
         HackToken lastTokenSecondPass = hackTokensSecondPass.get(4);
         assertEquals("@LOOP", lastTokenSecondPass.getTokenValue(), "We should now know the position");
         assertEquals("0000000000000000", lastTokenSecondPass.toHack(), "We should get the AValue");
+    }
 
+    @Test
+    public void secondPassReplacesUserSymbolsWithAValues() {
+        String[] rawLines = new String[]
+                {
+                        "@i",
+                        "M=1"
+                };
+        List<String> rawSingleLines = Arrays.asList(rawLines);
+        List<HackToken> hackTokensFirstPass = unit.firstPass(rawSingleLines);
+
+        HackToken labelTokenFirstPass = hackTokensFirstPass.get(0);
+        List<HackToken> hackTokensSecondPass = unit.secondPass(hackTokensFirstPass);
+        HackToken lastTokenSecondPass = hackTokensSecondPass.get(0);
+        assertEquals(HackSymbolToken.class, lastTokenSecondPass.getClass());
+        assertEquals("@i", lastTokenSecondPass.getTokenValue(), "We should now know the position");
+        assertEquals("0000000000010000", lastTokenSecondPass.toHack(), "We should get the AValue");
     }
 
 }

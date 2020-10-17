@@ -12,4 +12,10 @@ public class UserSymbolTable {
         symbolTable.put(cleanSymbol, ++userMemoryLocation);
         return userMemoryLocation;
     }
+
+    public void dump() {
+        System.out.println("====SYMBOLS===");
+        symbolTable.forEach((label, val) -> System.out.println(label + ": " + val));
+    }
+
 }

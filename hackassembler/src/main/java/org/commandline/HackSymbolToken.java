@@ -22,6 +22,8 @@ public class HackSymbolToken extends HackStandardToken implements HackExecutable
 
     @Override
     public void updateSymbols(UserSymbolTable ust) {
-        symbolTableLocation = ust.getSymbolName(getTokenValue().substring(1));
+        if (!labelPositions.hasLabel(getTokenValue())) {
+            symbolTableLocation = ust.getSymbolName(getTokenValue().substring(1));
+        }
     }
 }

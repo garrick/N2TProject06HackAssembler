@@ -16,6 +16,7 @@ public class UserLabelTable {
 
     public Integer getPositionForLabel(String possibleLabel) {return labelStore.get(TokenUtils.sanitize(possibleLabel));};
     public void dump() {
+        System.out.println("====LABELS===");
         labelStore.forEach((label,val) -> System.out.println(label+": "+val));
     }
 }

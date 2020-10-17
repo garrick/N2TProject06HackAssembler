@@ -9,7 +9,7 @@ public class HackParser implements Parser {
 
     private final String singleLineCommentPattern = "(\\s*)(//.*)";
     private final String valuePattern = "(\\@\\d*)";
-    private final String symbolPattern = "(\\@[A-Z]+\\w*)";
+    private final String symbolPattern = "(\\@[A-Z,a-z]+\\w*)";
     private final String assignmentPattern = ".*=.*";
     private final String jumpPattern = ".*;.*";
     private final String labelPattern = "\\(.*\\)";
@@ -50,11 +50,10 @@ public class HackParser implements Parser {
                     lastOpenLabel = null;
                 }
             }
-            if(!(token instanceof HackInvisibleToken)) {
+            if (!(token instanceof HackInvisibleToken)) {
                 position++;
             }
         }
-        ;
         return returnList;
     }
 
@@ -66,10 +65,12 @@ public class HackParser implements Parser {
             token.updateSymbols(userSymbolTable);
             secondPassTokens.add(token);
         }
+        //TODO: address UserSymbolTable usage
+        //userSymbolTable.dump();
         return secondPassTokens;
     }
 
-    public void dumpLabels(){
+    public void dumpLabels() {
         labelPositions.dump();
     }
 }
