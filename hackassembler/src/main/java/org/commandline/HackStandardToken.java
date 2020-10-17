@@ -37,4 +37,8 @@ public abstract class HackStandardToken implements HackToken {
     public String toString() {
         return toHack();
     }
+
+    @Override
+    public void updateSymbols(UserSymbolTable ust) {
+    }
 }

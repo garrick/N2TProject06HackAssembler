@@ -34,12 +34,30 @@ public class Assembler {
         HackParser parser = new HackParser();
         List<HackToken> hackTokens = parser.firstPass(fileLines);
         final boolean finalDebug = debug;
+        if (finalDebug) debugHeader();
         hackTokens.forEach((token) -> {
             if (finalDebug) {
-                System.out.println(token + "\t" + token.getClass().getSimpleName() + "\t\t\t" + token.getPosition() + "\t\t" + token.getTokenValue() + "\\t" + token.getRawValue());
+                debugOut(token);
             } else {
-                if (token.getTokenValue() != null) System.out.println(token);
+                String hackValue = token.toHack();
+                if (!hackValue.isBlank()) System.out.println(hackValue);
             }
         });
+    }
+
+    private static void debugHeader() {
+        String tokenName = String.format("%1$" + 24 + "s", "Token Name");
+        String tokenPosition = String.format("%1$" + 8 + "s", "Position");
+        System.out.println(tokenName + "\t" + "Token ASM" + "\t\t" + tokenPosition + "\t" + "Token Value" + "\tToken Raw");
+        System.out.println(String.format("%1$" + 120 + "s", " ").replace(' ', '='));
+    }
+
+    private static void debugOut(HackToken token) {
+        String tokenName = String.format("%1$" + 24 + "s", token.getClass().getSimpleName());
+        String tokenPosition = String.format("%1$" + 8 + "s", token.getPosition());
+        String hackValue = token.toHack();
+        System.out.println(tokenName + "\t" + (hackValue.isBlank() ? "\t\t" : hackValue)
+                + "\t" + tokenPosition + "\t" + token.getTokenValue() + "\t\t" + token.getRawValue());
+
     }
 }

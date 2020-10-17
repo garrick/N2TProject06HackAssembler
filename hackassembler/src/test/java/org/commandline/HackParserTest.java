@@ -1,6 +1,7 @@
 package org.commandline;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -90,7 +91,7 @@ public class HackParserTest {
         assertEquals(rawSingleLine, hackToken.getRawValue());
         assertEquals("@END", hackToken.getTokenValue());
         //No symbol location should be set on first pass!
-        assertEquals(-1, ((HackSymbolToken) hackToken).getSymbolTableLocation());
+        assertEquals("@-1", ((HackSymbolToken) hackToken).toHack());
     }
 
     @ParameterizedTest
@@ -113,6 +114,28 @@ public class HackParserTest {
         assertEquals(HackValueToken.class, hackToken.getClass());
         assertEquals(rawSingleLine, hackToken.getRawValue());
         assertEquals("@15", hackToken.getTokenValue());
+    }
+
+    @Test
+    public void secondPassReplacesLabelReferenceWithAValues() {
+        String[] rawLines = new String[]
+                {
+                        "//Nothing",
+                        "//Junk",
+                        "//Nada",
+                        "(LOOP)",
+                        "   @LOOP",
+                        "   0;JMP"
+                };
+        List<String> rawSingleLines = Arrays.asList(rawLines);
+        List<HackToken> hackTokensFirstPass = unit.firstPass(rawSingleLines);
+
+        HackToken labelTokenFirstPass = hackTokensFirstPass.get(4);
+        List<HackToken> hackTokensSecondPass = unit.secondPass(hackTokensFirstPass);
+        HackToken lastTokenSecondPass = hackTokensSecondPass.get(4);
+        assertEquals("@LOOP", lastTokenSecondPass.getTokenValue(), "We should now know the position");
+        assertEquals("0000000000000000", lastTokenSecondPass.toHack(), "We should get the AValue");
+
     }
 
 }

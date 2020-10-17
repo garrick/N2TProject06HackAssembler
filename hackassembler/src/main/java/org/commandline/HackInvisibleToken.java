@@ -8,6 +8,6 @@ public class HackInvisibleToken extends HackStandardToken {
 
     @Override
     public String toHack() {
-        return String.format("%1$" + 16 + "s", " ");
+        return "";
     }
 }

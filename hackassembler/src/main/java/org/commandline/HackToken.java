@@ -8,4 +8,6 @@ public interface HackToken {
     String toHack();
 
     int getPosition();
+
+    void updateSymbols(UserSymbolTable ust);
 }
