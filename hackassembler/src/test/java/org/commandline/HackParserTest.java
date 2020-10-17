@@ -117,13 +117,13 @@ public class HackParserTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"@myvar", " @myvar  ", "    @myvar  "})
+    @ValueSource(strings = {"@output.getmap$if_true0", " @output.getmap$if_true0  ", "    @output.getmap$if_true0  "})
     public void firstPassCreatesUserDefinedHackSymbolTokens(String rawSingleLine) {
         List<String> rawSingleLineComments = Arrays.asList(rawSingleLine);
         HackToken hackToken = unit.firstPass(rawSingleLineComments).get(0);
         assertEquals(HackSymbolToken.class, hackToken.getClass());
         assertEquals(rawSingleLine, hackToken.getRawValue());
-        assertEquals("@myvar", hackToken.getTokenValue());
+        assertEquals("@output.getmap$if_true0", hackToken.getTokenValue());
     }
 
     @Test
@@ -133,8 +133,8 @@ public class HackParserTest {
                         "//Nothing",
                         "//Junk",
                         "//Nada",
-                        "(LOOP)",
-                        "   @LOOP",
+                        "(LOOP_screen.drawpixel0)",
+                        "   @LOOP_screen.drawpixel0",
                         "   0;JMP"
                 };
         List<String> rawSingleLines = Arrays.asList(rawLines);
@@ -143,7 +143,7 @@ public class HackParserTest {
         HackToken labelTokenFirstPass = hackTokensFirstPass.get(4);
         List<HackToken> hackTokensSecondPass = unit.secondPass(hackTokensFirstPass);
         HackToken lastTokenSecondPass = hackTokensSecondPass.get(4);
-        assertEquals("@LOOP", lastTokenSecondPass.getTokenValue(), "We should now know the position");
+        assertEquals("@LOOP_screen.drawpixel0", lastTokenSecondPass.getTokenValue(), "We should now know the position");
         assertEquals("0000000000000000", lastTokenSecondPass.toHack(), "We should get the AValue");
     }
 
@@ -151,7 +151,7 @@ public class HackParserTest {
     public void secondPassReplacesUserSymbolsWithAValues() {
         String[] rawLines = new String[]
                 {
-                        "@i",
+                        "@sys.wait$while_end0",
                         "M=1"
                 };
         List<String> rawSingleLines = Arrays.asList(rawLines);
@@ -161,7 +161,7 @@ public class HackParserTest {
         List<HackToken> hackTokensSecondPass = unit.secondPass(hackTokensFirstPass);
         HackToken lastTokenSecondPass = hackTokensSecondPass.get(0);
         assertEquals(HackSymbolToken.class, lastTokenSecondPass.getClass());
-        assertEquals("@i", lastTokenSecondPass.getTokenValue(), "We should now know the position");
+        assertEquals("@sys.wait$while_end0", lastTokenSecondPass.getTokenValue(), "We should match");
         assertEquals("0000000000010000", lastTokenSecondPass.toHack(), "We should get the AValue");
     }
 

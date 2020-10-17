@@ -8,7 +8,7 @@ public class HackLabelTokenTest {
 
     @Test
     public void testPosition() {
-        HackLabelToken unit = new HackLabelToken("(END)", "(END)", 7);
+        HackLabelToken unit = new HackLabelToken("(LOOP_screen.drawpixel)", "(LOOP_screen.drawpixel)", 7);
         assertEquals(7, unit.getPosition());
     }
 }
