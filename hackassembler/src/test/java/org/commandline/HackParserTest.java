@@ -127,24 +127,27 @@ public class HackParserTest {
     }
 
     @Test
-    public void secondPassReplacesLabelReferenceWithAValues() {
+    public void secondPassReplacesMultipleLabelReferenceWithAValues() {
         String[] rawLines = new String[]
                 {
                         "//Nothing",
                         "//Junk",
                         "//Nada",
+                        "(MY_EXTRA_LABEL)",
                         "(LOOP_screen.drawpixel0)",
                         "   @LOOP_screen.drawpixel0",
-                        "   0;JMP"
+                        "   0;JMP",
+                        "   @MY_EXTRA_LABEL"
                 };
         List<String> rawSingleLines = Arrays.asList(rawLines);
-        List<HackToken> hackTokensFirstPass = unit.firstPass(rawSingleLines);
 
-        HackToken labelTokenFirstPass = hackTokensFirstPass.get(4);
-        List<HackToken> hackTokensSecondPass = unit.secondPass(hackTokensFirstPass);
-        HackToken lastTokenSecondPass = hackTokensSecondPass.get(4);
-        assertEquals("@LOOP_screen.drawpixel0", lastTokenSecondPass.getTokenValue(), "We should now know the position");
-        assertEquals("0000000000000000", lastTokenSecondPass.toHack(), "We should get the AValue");
+        List<HackToken> hackTokensSecondPass = unit.secondPass(unit.firstPass(rawSingleLines));
+        HackToken firstLabel = hackTokensSecondPass.get(7);
+        assertEquals("@MY_EXTRA_LABEL", firstLabel.getTokenValue(), "We should get the first label");
+        assertEquals("0000000000000000", firstLabel.toHack(), "We should get the AValue");
+        HackToken secondLabel = hackTokensSecondPass.get(5);
+        assertEquals("@LOOP_screen.drawpixel0", secondLabel.getTokenValue(), "We should get the second label");
+        assertEquals("0000000000000000", secondLabel.toHack(), "We should get the AValue");
     }
 
     @Test
@@ -155,10 +158,7 @@ public class HackParserTest {
                         "M=1"
                 };
         List<String> rawSingleLines = Arrays.asList(rawLines);
-        List<HackToken> hackTokensFirstPass = unit.firstPass(rawSingleLines);
-
-        HackToken labelTokenFirstPass = hackTokensFirstPass.get(0);
-        List<HackToken> hackTokensSecondPass = unit.secondPass(hackTokensFirstPass);
+        List<HackToken> hackTokensSecondPass = unit.secondPass(unit.firstPass(rawSingleLines));
         HackToken lastTokenSecondPass = hackTokensSecondPass.get(0);
         assertEquals(HackSymbolToken.class, lastTokenSecondPass.getClass());
         assertEquals("@sys.wait$while_end0", lastTokenSecondPass.getTokenValue(), "We should match");

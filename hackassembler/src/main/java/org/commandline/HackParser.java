@@ -17,7 +17,7 @@ public class HackParser implements Parser {
     public List<HackToken> firstPass(List<String> rawInput) {
         ArrayList<HackToken> returnList = new ArrayList<>();
         int position = 0;
-        HackLabelToken lastOpenLabel = null;
+        ArrayList<HackLabelToken> lastOpenLabel = new ArrayList<>();
         for (String rawLine : rawInput) {
             String noComments = rawLine.replaceAll(singleLineCommentPattern, "");
             String noCommentsTrimmed = noComments.trim();
@@ -26,7 +26,7 @@ public class HackParser implements Parser {
                 token = new HackCommentToken(rawLine, position);
             } else if (noCommentsTrimmed.matches(valuePattern)) {
                 token = new HackValueToken(rawLine, noCommentsTrimmed, position);
-            }  else if (noCommentsTrimmed.matches(symbolPattern)) {
+            } else if (noCommentsTrimmed.matches(symbolPattern)) {
                 int builtInSymbol = BuiltInSymbolTable.getOrDefault(noCommentsTrimmed.substring(1), -1);
                 if (builtInSymbol != -1) {
                     token = new HackValueToken(rawLine, "@" + builtInSymbol, position);
@@ -34,8 +34,8 @@ public class HackParser implements Parser {
                     token = new HackSymbolToken(rawLine, noCommentsTrimmed, position, labelPositions);
                 }
             } else if (noCommentsTrimmed.matches(labelPattern)) {
-                lastOpenLabel = new HackLabelToken(rawLine, noCommentsTrimmed, position);
-                token = lastOpenLabel;
+                lastOpenLabel.add(new HackLabelToken(rawLine, noCommentsTrimmed, position));
+                token = lastOpenLabel.get(lastOpenLabel.size() - 1);
             } else if (noCommentsTrimmed.matches(assignmentPattern)) {
                 token = new HackAssignmentToken(rawLine, noCommentsTrimmed, position);
             } else if (noCommentsTrimmed.matches(jumpPattern)) {
@@ -45,9 +45,10 @@ public class HackParser implements Parser {
             }
             returnList.add(token);
             if (token instanceof HackExecutableToken) {
-                if (lastOpenLabel != null) {
-                    labelPositions.storeLabel(lastOpenLabel.getTokenValue(), position);
-                    lastOpenLabel = null;
+                if (!lastOpenLabel.isEmpty()) {
+                    final int lambdaPosition = position;
+                    lastOpenLabel.forEach((label) -> labelPositions.storeLabel(label.getTokenValue(), lambdaPosition));
+                    lastOpenLabel.clear();
                 }
             }
             if (!(token instanceof HackInvisibleToken)) {
