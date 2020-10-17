@@ -49,6 +49,8 @@ public class HackParser implements Parser {
                     labelPositions.storeLabel(lastOpenLabel.getTokenValue(), position);
                     lastOpenLabel = null;
                 }
+            }
+            if(!(token instanceof HackInvisibleToken)) {
                 position++;
             }
         }
@@ -65,5 +67,9 @@ public class HackParser implements Parser {
             secondPassTokens.add(token);
         }
         return secondPassTokens;
+    }
+
+    public void dumpLabels(){
+        labelPositions.dump();
     }
 }

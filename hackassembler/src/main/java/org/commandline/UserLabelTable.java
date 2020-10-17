@@ -14,4 +14,8 @@ public class UserLabelTable {
         return labelStore.containsKey(TokenUtils.sanitize(possibleLabel));
     }
 
+    public Integer getPositionForLabel(String possibleLabel) {return labelStore.get(TokenUtils.sanitize(possibleLabel));};
+    public void dump() {
+        labelStore.forEach((label,val) -> System.out.println(label+": "+val));
+    }
 }

@@ -34,7 +34,10 @@ public class Assembler {
         HackParser parser = new HackParser();
         List<HackToken> hackTokens = parser.firstPass(fileLines);
         final boolean finalDebug = debug;
-        if (finalDebug) debugHeader();
+        if (finalDebug) {
+            parser.dumpLabels();
+            debugHeader();
+        }
         hackTokens.forEach((token) -> {
             if (finalDebug) {
                 debugOut(token);

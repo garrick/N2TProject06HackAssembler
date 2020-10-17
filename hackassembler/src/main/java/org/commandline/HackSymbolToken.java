@@ -13,7 +13,7 @@ public class HackSymbolToken extends HackStandardToken implements HackExecutable
     @Override
     public String toHack() {
         if (labelPositions.hasLabel(getTokenValue())) {
-            return DecimalToBinaryConverter.convertAndPad(getPosition(), 16);
+            return DecimalToBinaryConverter.convertAndPad(this.labelPositions.getPositionForLabel(getTokenValue()), 16);
         }
         if (symbolTableLocation == -1)
             return "@" + this.symbolTableLocation;
