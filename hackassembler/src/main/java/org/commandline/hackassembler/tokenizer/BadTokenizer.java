@@ -1,8 +1,7 @@
-package org.commandline.hackassembler;
+package org.commandline.hackassembler.tokenizer;
 
 import org.commandline.hackassembler.token.HackBadToken;
 import org.commandline.hackassembler.token.HackToken;
-import org.commandline.hackassembler.tokenizer.HackTokenizer;
 
 public class BadTokenizer extends HackTokenizer {
     public BadTokenizer() {

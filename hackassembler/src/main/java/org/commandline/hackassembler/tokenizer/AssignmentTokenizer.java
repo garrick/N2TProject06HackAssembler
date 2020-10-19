@@ -1,8 +1,7 @@
-package org.commandline.hackassembler;
+package org.commandline.hackassembler.tokenizer;
 
 import org.commandline.hackassembler.token.HackAssignmentToken;
 import org.commandline.hackassembler.token.HackToken;
-import org.commandline.hackassembler.tokenizer.HackTokenizer;
 
 public class AssignmentTokenizer extends HackTokenizer {
     public static final String PATTERN = ".*=.*";

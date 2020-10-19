@@ -1,12 +1,11 @@
-package org.commandline.hackassembler;
+package org.commandline.hackassembler.tokenizer;
 
 import org.commandline.hackassembler.token.HackLabelToken;
 import org.commandline.hackassembler.token.HackToken;
-import org.commandline.hackassembler.tokenizer.HackTokenizer;
 
 import java.util.ArrayList;
 
-public class LabelTokenizer extends HackTokenizer{
+public class LabelTokenizer extends HackTokenizer {
     public static final String PATTERN = "\\(([a-zA-Z0-9.$_]+)\\)";
     private final ArrayList<HackLabelToken> lastOpenLabel;
 

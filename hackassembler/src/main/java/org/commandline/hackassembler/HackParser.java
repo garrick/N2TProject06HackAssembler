@@ -3,8 +3,7 @@ package org.commandline.hackassembler;
 import org.commandline.hackassembler.table.UserLabelTable;
 import org.commandline.hackassembler.table.UserSymbolTable;
 import org.commandline.hackassembler.token.*;
-import org.commandline.hackassembler.tokenizer.CommentTokenizer;
-import org.commandline.hackassembler.tokenizer.ValueTokenizer;
+import org.commandline.hackassembler.tokenizer.*;
 import org.commandline.hackassembler.util.DebugFlag;
 import org.commandline.hackassembler.util.TokenUtils;
 
@@ -16,6 +15,10 @@ public class HackParser implements Parser {
     UserLabelTable labelPositions = new UserLabelTable();
     UserSymbolTable userSymbolPositions = new UserSymbolTable();
 
+    @Override
+    public List<HackToken> parse(List<String> lines) {
+        return secondPass(firstPass(lines));
+    }
 
     public List<HackToken> firstPass(List<String> rawInput) {
         ArrayList<HackToken> returnList = new ArrayList<>();
@@ -38,6 +41,15 @@ public class HackParser implements Parser {
         return returnList;
     }
 
+
+    List<HackToken> secondPass(List<HackToken> firstPassTokens) {
+        ArrayList<HackToken> secondPassTokens = new ArrayList<>();
+        for (HackToken token : firstPassTokens) {
+            token.updateSymbols(userSymbolPositions);
+            secondPassTokens.add(token);
+        }
+        return secondPassTokens;
+    }
     private void updateLastOpenLabel(ArrayList<HackLabelToken> lastOpenLabel, int position, HackToken token) {
         if (token instanceof HackExecutableToken) {
             if (!lastOpenLabel.isEmpty()) {
@@ -53,21 +65,6 @@ public class HackParser implements Parser {
             position++;
         }
         return position;
-    }
-
-    @Override
-    public List<HackToken> secondPass(List<HackToken> firstPassTokens) {
-        ArrayList<HackToken> secondPassTokens = new ArrayList<>();
-        for (HackToken token : firstPassTokens) {
-            token.updateSymbols(userSymbolPositions);
-            secondPassTokens.add(token);
-        }
-        return secondPassTokens;
-    }
-
-    @Override
-    public List<HackToken> parse(List<String> lines) {
-        return secondPass(firstPass(lines));
     }
 
     public void dumpParserInfo() {
