@@ -3,8 +3,6 @@ package org.commandline.hackassembler.token;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.PrintStream;
@@ -19,7 +17,7 @@ public class HackStandardTokenTest {
     private PrintStream outputStream;
 
     @Test
-    void testRendersToPrintStream(){
+    void testRendersToPrintStream() {
         HackStandardToken unit = new HackStandardToken("@42", "@42", 7) {
             @Override
             public String getRawValue() {
@@ -34,9 +32,11 @@ public class HackStandardTokenTest {
         unit.renderTo(outputStream);
         verify(outputStream).println("@42");
     }
+
     @Test
-    void testDoesNotRenderToPrintStreamWhenToHackIsBlank(){
-        HackStandardToken unit = new HackStandardToken("//Comment", "", 7) {
+    void testDoesNotRenderToPrintStreamWhenToHackIsBlank() {
+        String emptyString = "";
+        HackStandardToken unit = new HackStandardToken("//Comment", emptyString, 7) {
             @Override
             public String getRawValue() {
                 return super.getRawValue();
@@ -44,10 +44,10 @@ public class HackStandardTokenTest {
 
             @Override
             public String toHack() {
-                return "";
+                return emptyString;
             }
         };
         unit.renderTo(outputStream);
-        verify(outputStream,never()).println("");
+        verify(outputStream, never()).println(emptyString);
     }
 }

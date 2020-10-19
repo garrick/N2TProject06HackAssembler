@@ -1,8 +1,6 @@
 package org.commandline.hackassembler;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +15,7 @@ public class FileReader {
                 line = reader.readLine();
             }
             reader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return fileLines;

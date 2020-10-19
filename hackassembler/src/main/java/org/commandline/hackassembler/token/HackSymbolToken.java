@@ -7,7 +7,7 @@ import org.commandline.hackassembler.util.DecimalToBinaryConverter;
 public class HackSymbolToken extends HackStandardToken implements HackExecutableToken {
 
     private int symbolTableLocation = -1;
-    private UserLabelTable labelPositions;
+    private final UserLabelTable labelPositions;
 
     public HackSymbolToken(String rawLine, String tokenValue, int labelPosition, UserLabelTable labelPositions) {
         super(rawLine, tokenValue, labelPosition);

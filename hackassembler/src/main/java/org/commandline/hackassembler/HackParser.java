@@ -28,7 +28,7 @@ public class HackParser implements Parser {
         for (String rawLine : rawInput) {
             String noComments = rawLine.replaceAll(singleLineCommentPattern, "");
             String noCommentsTrimmed = noComments.trim();
-            HackToken token = null;
+            HackToken token;
             if (noCommentsTrimmed.isBlank()) {
                 token = new HackCommentToken(rawLine, position);
             } else if (noCommentsTrimmed.matches(valuePattern)) {
