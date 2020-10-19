@@ -9,16 +9,16 @@ public class UserLabelTable {
     private final HashMap<String, Integer> labelStore = new HashMap<>();
 
     public void storeLabel(String rawLabel, int position) {
-        String cleanLabel = TokenUtils.sanitize(rawLabel);
+        String cleanLabel = TokenUtils.sanitizeLabel(rawLabel);
         labelStore.put(cleanLabel, position);
     }
 
     public boolean hasLabel(String possibleLabel) {
-        return labelStore.containsKey(TokenUtils.sanitize(possibleLabel));
+        return labelStore.containsKey(TokenUtils.sanitizeLabel(possibleLabel));
     }
 
     public Integer getPositionForLabel(String possibleLabel) {
-        return labelStore.get(TokenUtils.sanitize(possibleLabel));
+        return labelStore.get(TokenUtils.sanitizeLabel(possibleLabel));
     }
 
     public void dump() {
