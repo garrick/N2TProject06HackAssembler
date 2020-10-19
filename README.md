@@ -1,5 +1,5 @@
-###Nand2Tetris Project 6
-#####Hack Assembler
+# Nand2Tetris Project 6
+## Hack Assembler
 This is my solution to the Hack language Assembler for the
 Nand2Tetris course project 6 (see https://www.nand2tetris.org/project06).  It includes a few notable aspects and 
 features not required of the original project:
