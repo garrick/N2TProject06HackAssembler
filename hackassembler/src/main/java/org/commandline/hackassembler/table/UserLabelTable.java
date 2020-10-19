@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class UserLabelTable {
 
-    private HashMap<String, Integer> labelStore = new HashMap<>();
+    private final HashMap<String, Integer> labelStore = new HashMap<>();
 
     public void storeLabel(String rawLabel, int position) {
         String cleanLabel = TokenUtils.sanitize(rawLabel);

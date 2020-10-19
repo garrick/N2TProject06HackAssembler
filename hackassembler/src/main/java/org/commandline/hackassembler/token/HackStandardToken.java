@@ -7,9 +7,9 @@ import java.io.PrintStream;
 
 public abstract class HackStandardToken implements HackToken {
 
-    private String rawLine;
-    private String tokenValue;
-    private int labelPosition;
+    private final String rawLine;
+    private final String tokenValue;
+    private final int labelPosition;
 
     public HackStandardToken(String rawLine, String tokenValue, int labelPosition) {
 

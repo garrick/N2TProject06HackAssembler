@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class BuiltInSymbolTable {
 
-    private static HashMap<String, Integer> table = new HashMap();
+    private static final HashMap<String, Integer> table = new HashMap<>();
 
     static {
         for (int i = 0; i <= 15; i++) {

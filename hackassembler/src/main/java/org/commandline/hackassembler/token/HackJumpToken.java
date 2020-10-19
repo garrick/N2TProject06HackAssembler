@@ -10,10 +10,10 @@ public class HackJumpToken extends HackStandardToken implements HackExecutableTo
 
     @Override
     public String toHack() {
-        StringBuffer hackOut = new StringBuffer(16);
+        StringBuilder hackOut = new StringBuilder(16);
         hackOut.append("1110"); //First 4 bytes
         String tokenValue = getTokenValue().replaceAll("\\s", "");
-        String[] fragments = tokenValue.split("\\;");
+        String[] fragments = tokenValue.split(";");
 
         String comp = fragments[0];
         hackOut.append(InstructionTables.mapAZeroCInstruction(comp, "BAD"));

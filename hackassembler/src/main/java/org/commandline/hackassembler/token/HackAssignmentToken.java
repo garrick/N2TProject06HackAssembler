@@ -3,19 +3,19 @@ package org.commandline.hackassembler.token;
 import org.commandline.hackassembler.table.InstructionTables;
 
 public class HackAssignmentToken extends HackStandardToken implements HackExecutableToken {
+    private static final String INSTRUCTION_BITS = "111";
+
     public HackAssignmentToken(String rawValue, String tokenValue, int position) {
         super(rawValue, tokenValue, position);
     }
 
-    private String instrBits = "111";
-
 
     @Override
     public String toHack() {
-        StringBuffer hackOut = new StringBuffer(16);
-        hackOut.append("111"); //First 3 bytes
+        StringBuilder hackOut = new StringBuilder(16);
+        hackOut.append(INSTRUCTION_BITS); //First 3 bytes
         String tokenValue = getTokenValue().replaceAll("\\s", "");
-        String[] fragments = tokenValue.split("\\=");
+        String[] fragments = tokenValue.split("=");
 
         String comp = fragments[1];
         if (InstructionTables.mapAOneCInstruction(comp, "NOTAONE").equals("NOTAONE")) {

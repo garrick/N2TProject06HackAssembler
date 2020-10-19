@@ -3,7 +3,7 @@ package org.commandline.hackassembler.table;
 import java.util.HashMap;
 
 public class InstructionTables {
-    private static HashMap<String, String> aZeroCInstructions = new HashMap<>();
+    private static final HashMap<String, String> aZeroCInstructions = new HashMap<>();
 
     static {
         aZeroCInstructions.put("0", "101010");
@@ -26,7 +26,7 @@ public class InstructionTables {
         aZeroCInstructions.put("D|A", "010101"); //D|M
     }
 
-    private static HashMap<String, String> aOneCInstructions = new HashMap<>();
+    private static final HashMap<String, String> aOneCInstructions = new HashMap<>();
 
     static {
         aOneCInstructions.put("M", "110000");
@@ -41,7 +41,7 @@ public class InstructionTables {
         aOneCInstructions.put("D|M", "010101");
     }
 
-    private static HashMap<String, String> destinationBits = new HashMap<>();
+    private static final HashMap<String, String> destinationBits = new HashMap<>();
 
     static {
         destinationBits.put("M", "001");
@@ -53,7 +53,7 @@ public class InstructionTables {
         destinationBits.put("AMD", "111");
     }
 
-    private static final HashMap<String, String> jumpBits = new HashMap<String, String>();
+    private static final HashMap<String, String> jumpBits = new HashMap<>();
 
     static {
         jumpBits.put("JGT", "001");

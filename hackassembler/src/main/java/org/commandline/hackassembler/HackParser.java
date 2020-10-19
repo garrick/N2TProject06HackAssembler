@@ -12,6 +12,7 @@ import java.util.List;
 public class HackParser implements Parser {
 
     UserLabelTable labelPositions = new UserLabelTable();
+    UserSymbolTable userSymbolPositions = new UserSymbolTable();
 
     private final String singleLineCommentPattern = "(\\s*)(//.*)";
     private final String valuePattern = "(\\@\\d*)";
@@ -66,13 +67,11 @@ public class HackParser implements Parser {
 
     @Override
     public List<HackToken> secondPass(List<HackToken> firstPassTokens) {
-        UserSymbolTable userSymbolTable = new UserSymbolTable();
         ArrayList<HackToken> secondPassTokens = new ArrayList<>();
         for (HackToken token : firstPassTokens) {
-            token.updateSymbols(userSymbolTable);
+            token.updateSymbols(userSymbolPositions);
             secondPassTokens.add(token);
         }
-        //TODO: address UserSymbolTable usage
         return secondPassTokens;
     }
 
@@ -81,7 +80,10 @@ public class HackParser implements Parser {
         return secondPass(firstPass(lines));
     }
 
-    public void dumpLabels() {
-        if(DebugFlag.isOn()) labelPositions.dump();
+    public void dumpParserInfo() {
+        if(DebugFlag.isOn()) {
+            labelPositions.dump();
+            userSymbolPositions.dump();
+        }
     }
 }

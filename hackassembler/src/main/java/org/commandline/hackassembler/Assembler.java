@@ -14,7 +14,7 @@ public class Assembler {
         HackParser parser = new HackParser();
         List<HackToken> hackTokens = parser.parse(fileLines);
 
-        parser.dumpLabels();
+        parser.dumpParserInfo();
         DebugFlag.debugHeader();
         hackTokens.forEach((token) -> {
                 token.renderTo(System.out);
