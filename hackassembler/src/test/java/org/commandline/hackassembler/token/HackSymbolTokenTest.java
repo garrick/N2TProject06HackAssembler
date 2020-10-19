@@ -1,5 +1,7 @@
-package org.commandline;
+package org.commandline.hackassembler.token;
 
+import org.commandline.hackassembler.table.UserLabelTable;
+import org.commandline.hackassembler.table.UserSymbolTable;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

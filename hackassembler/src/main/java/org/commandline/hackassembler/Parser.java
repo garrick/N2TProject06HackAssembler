@@ -1,5 +1,7 @@
 package org.commandline;
 
+import org.commandline.hackassembler.token.HackToken;
+
 import java.util.List;
 
 public interface Parser {

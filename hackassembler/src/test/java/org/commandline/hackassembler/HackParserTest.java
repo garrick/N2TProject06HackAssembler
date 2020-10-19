@@ -1,5 +1,6 @@
-package org.commandline;
+package org.commandline.hackassembler;
 
+import org.commandline.hackassembler.token.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

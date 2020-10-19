@@ -1,5 +1,10 @@
 package org.commandline;
 
+import org.commandline.hackassembler.table.BuiltInSymbolTable;
+import org.commandline.hackassembler.table.UserLabelTable;
+import org.commandline.hackassembler.table.UserSymbolTable;
+import org.commandline.hackassembler.token.*;
+
 import java.util.ArrayList;
 import java.util.List;
 

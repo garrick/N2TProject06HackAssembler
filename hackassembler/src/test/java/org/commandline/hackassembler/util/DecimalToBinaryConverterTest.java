@@ -1,4 +1,4 @@
-package org.commandline;
+package org.commandline.hackassembler.util;
 
 import org.junit.jupiter.api.Test;
 

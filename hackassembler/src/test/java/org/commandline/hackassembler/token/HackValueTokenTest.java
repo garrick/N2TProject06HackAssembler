@@ -1,4 +1,4 @@
-package org.commandline;
+package org.commandline.hackassembler.token;
 
 import org.junit.jupiter.api.Test;
 
