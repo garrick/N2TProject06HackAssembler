@@ -9,7 +9,7 @@ import org.commandline.hackassembler.tokenizer.HackTokenizer;
 
 public class SymbolTokenizer extends HackTokenizer {
     public static String PATTERN = "(\\@([a-zA-Z0-9.$_]+))";
-    private UserLabelTable labelPositions;
+    private final UserLabelTable labelPositions;
 
     public SymbolTokenizer(HackTokenizer nextTokenizer, UserLabelTable labelPositions) {
         super(nextTokenizer);

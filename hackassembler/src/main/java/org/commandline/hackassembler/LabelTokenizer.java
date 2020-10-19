@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class LabelTokenizer extends HackTokenizer{
     public static final String PATTERN = "\\(([a-zA-Z0-9.$_]+)\\)";
-    private ArrayList<HackLabelToken> lastOpenLabel;
+    private final ArrayList<HackLabelToken> lastOpenLabel;
 
     public LabelTokenizer(HackTokenizer nextTokenizer, ArrayList<HackLabelToken> lastOpenLabel) {
         super(nextTokenizer);
