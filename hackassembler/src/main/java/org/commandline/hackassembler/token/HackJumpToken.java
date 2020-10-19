@@ -1,4 +1,6 @@
-package org.commandline;
+package org.commandline.hackassembler.token;
+
+import org.commandline.hackassembler.table.InstructionTables;
 
 public class HackJumpToken extends HackStandardToken implements HackExecutableToken {
 

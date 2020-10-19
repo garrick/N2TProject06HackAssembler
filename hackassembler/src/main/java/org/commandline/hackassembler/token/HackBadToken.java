@@ -1,4 +1,4 @@
-package org.commandline;
+package org.commandline.hackassembler.token;
 
 public class HackBadToken extends HackInvisibleToken {
     public HackBadToken(String rawValue, int position) {

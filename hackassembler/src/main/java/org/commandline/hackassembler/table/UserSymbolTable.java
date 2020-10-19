@@ -1,4 +1,6 @@
-package org.commandline;
+package org.commandline.hackassembler.table;
+
+import org.commandline.hackassembler.util.TokenUtils;
 
 import java.util.HashMap;
 

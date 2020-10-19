@@ -1,9 +1,10 @@
-package org.commandline;
+package org.commandline.hackassembler;
 
 import org.commandline.hackassembler.table.BuiltInSymbolTable;
 import org.commandline.hackassembler.table.UserLabelTable;
 import org.commandline.hackassembler.table.UserSymbolTable;
 import org.commandline.hackassembler.token.*;
+import org.commandline.hackassembler.util.DebugFlag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,11 +73,15 @@ public class HackParser implements Parser {
             secondPassTokens.add(token);
         }
         //TODO: address UserSymbolTable usage
-        //userSymbolTable.dump();
         return secondPassTokens;
     }
 
+    @Override
+    public List<HackToken> parse(List<String> lines) {
+        return secondPass(firstPass(lines));
+    }
+
     public void dumpLabels() {
-        labelPositions.dump();
+        if(DebugFlag.isOn()) labelPositions.dump();
     }
 }

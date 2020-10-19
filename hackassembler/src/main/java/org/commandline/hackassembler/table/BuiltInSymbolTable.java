@@ -1,4 +1,4 @@
-package org.commandline;
+package org.commandline.hackassembler.table;
 
 import java.util.HashMap;
 
@@ -18,7 +18,6 @@ public class BuiltInSymbolTable {
         table.put("ARG", 2);
         table.put("THIS", 3);
         table.put("THAT", 4);
-
     }
 
     public static int getOrDefault(String candidateSymbol, int defaultValue) {

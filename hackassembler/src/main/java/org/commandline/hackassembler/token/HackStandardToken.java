@@ -1,4 +1,9 @@
-package org.commandline;
+package org.commandline.hackassembler.token;
+
+import org.commandline.hackassembler.table.UserSymbolTable;
+import org.commandline.hackassembler.util.DebugFlag;
+
+import java.io.PrintStream;
 
 public abstract class HackStandardToken implements HackToken {
 
@@ -40,5 +45,15 @@ public abstract class HackStandardToken implements HackToken {
 
     @Override
     public void updateSymbols(UserSymbolTable ust) {
+    }
+
+    @Override
+    public void renderTo(PrintStream outputStream) {
+        String hackOutput = toHack();
+        if(DebugFlag.isOn()) {
+            DebugFlag.debugOut(this);
+        } else {
+            if(hackOutput != null && !hackOutput.isBlank())outputStream.println(this.toHack());
+        }
     }
 }

@@ -1,4 +1,4 @@
-package org.commandline;
+package org.commandline.hackassembler.util;
 
 public class DecimalToBinaryConverter {
     public static String convert16(int value) {

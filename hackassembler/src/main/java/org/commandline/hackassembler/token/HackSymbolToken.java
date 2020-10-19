@@ -1,4 +1,8 @@
-package org.commandline;
+package org.commandline.hackassembler.token;
+
+import org.commandline.hackassembler.table.UserLabelTable;
+import org.commandline.hackassembler.table.UserSymbolTable;
+import org.commandline.hackassembler.util.DecimalToBinaryConverter;
 
 public class HackSymbolToken extends HackStandardToken implements HackExecutableToken {
 
