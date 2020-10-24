@@ -7,7 +7,7 @@ features not required of the original project:
 * Nifty enhanced debugging support!
 * Chain Of Command Tokenizing
 * Visual Regression test against "Gold Standard" Assembler output 
-* Maven configuration
+* Gradle configuration
 * Simple CI "style" build/package/regression script 
 
 Take a look at the build.sh file for details on running.  
