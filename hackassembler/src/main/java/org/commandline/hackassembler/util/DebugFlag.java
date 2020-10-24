@@ -17,20 +17,28 @@ public class DebugFlag {
 
     public static void debugHeader() {
         if(isOn()) {
-        String tokenName = String.format("%1$" + 24 + "s", "Token Name");
-        String tokenPosition = String.format("%1$" + 8 + "s", "Position");
-        System.out.println(tokenName + "\t" + "Token ASM" + "\t\t" + tokenPosition + "\t" + "Token Value" + "\tToken Raw");
+            String tokenName = padOut(24, "Token Name");
+            String tokenPosition = padOut(8, "Position");
+            String tokenValue = padOut(16, "Token Value");
+        System.out.println(tokenName + "\t" + "Token ASM" + "\t\t" + tokenPosition + "\t" + tokenValue + "\tToken Raw");
         System.out.println(String.format("%1$" + 120 + "s", " ").replace(' ', '='));
         }
     }
 
+    private static String padOut(int padValue, String padString) {
+        return String.format("%1$" + padValue + "s", padString);
+    }
+
     public static void debugOut(HackToken token) {
         if(isOn()) {
-            String tokenName = String.format("%1$" + 24 + "s", token.getClass().getSimpleName());
-            String tokenPosition = String.format("%1$" + 8 + "s", token.getPosition());
+            String tokenName = padOut(24, token.getClass().getSimpleName());
+            String tokenPosition = padOut(8, ""+token.getPosition());
+            String tokenValue = padOut(16, ""+token.getTokenValue());
             String hackValue = token.toHack();
             System.out.println(tokenName + "\t" + (hackValue.isBlank() ? "\t\t" : hackValue)
-                    + "\t" + tokenPosition + "\t" + token.getTokenValue() + "\t\t" + token.getRawValue());
+                    + "\t" + tokenPosition + "\t" + tokenValue + "\t" + token.getRawValue());
         }
     }
+
+
 }

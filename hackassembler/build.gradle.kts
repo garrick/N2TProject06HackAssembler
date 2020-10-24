@@ -25,7 +25,7 @@ dependencies {
 group = "org.commandline"
 version = "1.0-SNAPSHOT"
 description = "hackassembler"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 sourceSets.main{                                
         java.srcDirs("src/main/java")
