@@ -1,5 +1,6 @@
 package org.commandline.hackassembler.table;
 
+import org.commandline.hackassembler.util.DebugFlag;
 import org.commandline.hackassembler.util.TokenUtils;
 
 import java.util.HashMap;
@@ -22,7 +23,7 @@ public class UserLabelTable {
     }
 
     public void dump() {
-        System.out.println("====LABELS===");
-        labelStore.forEach((label, val) -> System.out.println(label + ": " + val));
+        System.out.println(DebugFlag.leftMarginPadding() + "====LABELS===");
+        labelStore.forEach((label, val) -> System.out.println(DebugFlag.leftMarginPadding() + label + ": " + val));
     }
 }

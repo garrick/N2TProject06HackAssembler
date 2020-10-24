@@ -1,5 +1,6 @@
 package org.commandline.hackassembler.table;
 
+import org.commandline.hackassembler.util.DebugFlag;
 import org.commandline.hackassembler.util.TokenUtils;
 
 import java.util.HashMap;
@@ -16,8 +17,8 @@ public class UserSymbolTable {
     }
 
     public void dump() {
-        System.out.println("====SYMBOLS===");
-        symbolTable.forEach((label, val) -> System.out.println(label + ": " + val));
+        System.out.println(DebugFlag.leftMarginPadding() + "====SYMBOLS===");
+        symbolTable.forEach((label, val) -> System.out.println(DebugFlag.leftMarginPadding() + label + ": " + val));
     }
 
 }
