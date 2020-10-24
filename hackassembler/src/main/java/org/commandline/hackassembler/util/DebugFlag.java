@@ -20,7 +20,7 @@ public class DebugFlag {
             String tokenName = padOut(24, "Token Name");
             String tokenPosition = padOut(8, "Position");
             String tokenValue = padOut(16, "Token Value");
-            System.out.println(leftMarginPadding() + tokenName + "\t\t\t" + "Token ASM" + "\t\t" + tokenPosition + "\t" + tokenValue + "\tToken Raw");
+            System.out.println(leftMarginPadding() + tokenName + "\t" + "Token ASM" + "\t" + tokenPosition + "\t" + tokenValue + "\tToken Raw");
             System.out.println(leftMarginPadding() + String.format("%1$" + 140 + "s", " ").replace(' ', '='));
         }
     }
@@ -39,8 +39,8 @@ public class DebugFlag {
             String tokenPosition = padOut(8, "" + token.getPosition());
             String tokenValue = padOut(16, "" + token.getTokenValue());
             String hackValue = token.toHack();
-            System.out.println(leftMarginPadding() + tokenName + "\t\t" + (hackValue.isBlank() ? "\t\t" : hackValue)
-                    + "\t\t" + tokenPosition + "\t" + tokenValue + "\t" + token.getRawValue());
+            System.out.println(leftMarginPadding() + tokenName + "\t" + (hackValue.isBlank() ? "\t\t" : hackValue)
+                    + tokenPosition + "\t" + tokenValue + "\t" + token.getRawValue());
         }
     }
 
