@@ -1,9 +1,9 @@
 clear
 cd hackassembler
-mvn clean install
+gradle clean build --info --rerun-tasks
 cd ..
 echo "Running...."
-java -jar hackassembler/target/hackassembler-1.0-SNAPSHOT.jar pong/Pong.asm > MyPong.hack
+java -jar hackassembler/build/libs/hackassembler-1.0-SNAPSHOT.jar pong/Pong.asm > MyPong.hack
 echo "Comparing with gold master..."
 echo "========================="
 diff MyPong.hack pong/GoldMasterPong.hack
