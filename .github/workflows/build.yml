@@ -12,8 +12,8 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '11'
-      - name: Build forced clean with Gradle
-        run: ./gradlew clean build --info --refun-tasks
+      - name: Build with Gradle
+        run: ./gradlew build
       - name: Generate Gold Master Test 
         run: java -jar hackassembler/build/libs/hackassembler-1.0-SNAPSHOT.jar pong/Pong.asm > MyPong.hack
       - name: Diff output
