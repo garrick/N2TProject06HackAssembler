@@ -16,8 +16,8 @@ jobs:
         run: ./gradlew clean build --info --refun-tasks
       - name: Generate Gold Master Test 
         run: java -jar hackassembler/build/libs/hackassembler-1.0-SNAPSHOT.jar pong/Pong.asm > MyPong.hack
-      - uses: LouisBrunner/diff-action@v0.1.0
       - name: Diff output
+      - uses: LouisBrunner/diff-action@v0.1.0
         with: 
           old: MyPong.hack
           new: pong/GoldMasterPong.hack
