@@ -1,3 +1,4 @@
+![Java CI](https://github.com/garrick/N2TProject06HackAssembler/workflows/Java%20CI/badge.svg)
 # Nand2Tetris Project 6
 ## Hack Assembler
 This is my solution to the Hack language Assembler for the
