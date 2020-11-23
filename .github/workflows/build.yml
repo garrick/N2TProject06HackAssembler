@@ -14,12 +14,14 @@ jobs:
           java-version: '11'
       - name: Build with Gradle
         run: ./gradlew build
+        working-directory: ./hackassembler
       - name: Generate Gold Master Test 
-        run: java -jar ./build/libs/hackassembler-1.0-SNAPSHOT.jar pong/Pong.asm > MyPong.hack
+        run: java -jar build/libs/hackassembler-1.0-SNAPSHOT.jar pong/Pong.asm > MyPong.hack
+        working-directory: ./hackassembler
       - name: Diff output
         uses: LouisBrunner/diff-action@v0.1.0
         with: 
-          old: MyPong.hack
+          old: hackassembler/MyPong.hack
           new: pong/GoldMasterPong.hack
           mode: addition
           tolerance: same
