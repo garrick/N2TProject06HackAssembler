@@ -6,6 +6,7 @@ plugins {
     `java`
     `maven`
     `maven-publish`
+    `jacoco`
 }
 
 repositories {
@@ -27,15 +28,15 @@ version = "1.0-SNAPSHOT"
 description = "hackassembler"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
-sourceSets.main{                                
-        java.srcDirs("src/main/java")
+sourceSets.main {
+    java.srcDirs("src/main/java")
 }
 sourceSets.test {
-        java.srcDirs("src/test/java")
+    java.srcDirs("src/test/java")
 }
 
 tasks.withType<Test> {
-  useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 val jar by tasks.getting(Jar::class) {
@@ -46,4 +47,19 @@ val jar by tasks.getting(Jar::class) {
 
 tasks.withType<JavaCompile>() {
     options.encoding = "UTF-8"
+}
+
+
+tasks.withType<JacocoReport> {
+    classDirectories.setFrom(
+            sourceSets.main.get().output.asFileTree.matching {
+                exclude("org/commandline/hackassembler/util/DebugFlag.class")
+                exclude("org/commandline/hackassembler/Assembler.class")
+                exclude("org/commandline/hackassembler/FileReader.class")
+            }
+                            )
+}
+
+tasks.test {
+    finalizedBy("jacocoTestReport")
 }
