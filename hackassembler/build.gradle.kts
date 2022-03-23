@@ -4,7 +4,6 @@
 
 plugins {
     `java`
-    `maven`
     `maven-publish`
     `jacoco`
 }
